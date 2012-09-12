@@ -1,0 +1,128 @@
+for documentation, see diag-filte-old.txt
+
+This file shows the usage with diag-filter.conf
+
+creating pdf:: a2x -v -f pdf --asciidoc-opts "-f diag-filter.conf" diag-test.txt
+
+creating html:: asciidoc -f diag-filter.conf diag-test.txt
+
+.seqdiag example
+["seqdiag"]
+---------------------------------------------------------------------
+{
+  // edge label
+  A -> B [label = "call"];
+  A <- B [label = "return"];
+
+  // diagonal edge
+  A -> B [diagonal, label = "diagonal edge"];
+  A <- B [diagonal, label = "return diagonal edge"];
+}
+---------------------------------------------------------------------
+
+
+.another seqdiag sample
+["seqdiag"]
+---------------------------------------------------------------------
+{
+  // normal edge
+  A -> B [label = "normal edge"];
+
+  // dotted edge
+  B --> C [label = "dotted edge"];
+
+  // asynchronus edge
+  A ->> B [label = "asynchronus edge"];
+  B -->> C [label = "asynchronus dotted edge"];
+
+  // return edge
+  B <- C [label = "return edge"];
+  A <-- B [label = "return dotted edge"];
+  B <<- C [label = "return asynchronus edge"];
+  A <<-- B [label = "return asynchronus dotted edge"];
+
+  // self referenced edge
+  A -> A [label = "self referenced edge"];
+}
+---------------------------------------------------------------------
+
+
+.blockdiag example
+["blockdiag"]
+---------------------------------------------------------------------
+blockdiag {
+   A -> B -> C -> D;
+   A -> E -> F -> G;
+}
+---------------------------------------------------------------------
+
+.packetdiag example
+["packetdiag"]
+---------------------------------------------------------------------
+diagram {
+  colwidth = 32
+  node_height = 72
+
+  0-15: Source Port
+  16-31: Destination Port
+  32-63: Sequence Number
+  64-95: Acknowledgment Number
+  96-99: Data Offset
+  100-105: Reserved
+  106: URG [rotate = 270]
+  107: ACK [rotate = 270]
+  108: PSH [rotate = 270]
+  109: RST [rotate = 270]
+  110: SYN [rotate = 270]
+  111: FIN [rotate = 270]
+  112-127: Window
+  128-143: Checksum
+  144-159: Urgent Pointer
+  160-191: (Options and Padding)
+  192-223: data [colheight = 3]
+}
+
+---------------------------------------------------------------------
+
+.Another nwdiag example
+["nwdiag"]
+---------------------------------------------------------------------
+diagram {
+  network dmz {
+      address = "210.x.x.x/24"
+
+      web01 [address = "210.x.x.1"];
+      web02 [address = "210.x.x.2"];
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01;
+      db02;
+  }
+}
+---------------------------------------------------------------------
+
+
+
+.actdiag example
+["actdiag"]
+---------------------------------------------------------------------
+actdiag {
+  write -> convert -> image
+
+  lane user {
+     label = "User"
+     write [label = "Writing reST"];
+     image [label = "Get diagram IMAGE"];
+  }
+  lane actdiag {
+     convert [label = "Convert reST to Image"];
+  }
+}
+---------------------------------------------------------------------
+
+
+
